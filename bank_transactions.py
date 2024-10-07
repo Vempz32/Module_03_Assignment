@@ -1,9 +1,11 @@
 """
-Description: Automated Teller Machine  (ATM) Simulator
+Description: Automated Teller Machine (ATM) Simulator
 Author: Tyler Jablonski
 Date: October 6th 2024
 """
 import random
+import os
+from time import sleep
 
 menudict = {
     "uppercase": {
@@ -46,59 +48,57 @@ insufficient_text = "INSUFFICIENT FUNDS"
 insufficient_text = insufficient_text.center(40)
 
 
-
-# Printing the selection menu
-print("****************************************")
-print(title_text)
-print(subheading)
-print(balance_text.format(balance=balance))
-print(deposit_text)
-print(withdraw_text)
-print(quit_text)
-print("****************************************")
-
 # Start the loop for selection
 while True:
+    os.system('cls' if os.name == 'nt' else 'clear')
+    # Printing the selection menu
+    print("****************************************")
+    print(title_text)
+    print(subheading)
+    print(balance_text.format(balance=balance))
+    print(deposit_text)
+    print(withdraw_text)
+    print(quit_text)
+    print("****************************************")
+
+
     # Prompt for user input inside the loop
     selection = input("Enter your selection: ").lower()  # Convert to lowercase for easy comparison
 
+    # Handle Quit option
+    if selection == menudict["lowercase"]["quit"]: 
+        break  # Exit the loop after quitting
+
     # Check if the selection is valid
     if selection in menudict["lowercase"].values():
-       
-        # Handle Deposit or Withdraw selection
+    
+        # Handle Deposit selection
         if selection == menudict["lowercase"]["deposit"]:
             amount = input("Enter the amount: ")
-            balance  += float(amount)
+            balance += float(amount)
             print("****************************************")
             print(balance_text.format(balance=balance))
             print("****************************************")
+            sleep(3)
+        
+        # Handle Withdraw selection
         elif selection == menudict["lowercase"]["withdraw"]:
             amount = input("Enter the amount: ")
                 
-            if float(amount) >= balance:
+            if float(amount) > balance:
                 print("****************************************")
                 print(insufficient_text)
                 print("****************************************")
-                    
             else:
-                balance  -= float(amount)
+                balance -= float(amount)
                 print("****************************************")
                 print(balance_text.format(balance=balance))
                 print("****************************************")
-
-        break  # Exit loop after valid amount entry
-
-    # Handle Quit option
-    elif selection == menudict["lowercase"]["quit"]:
-        
-        break
+            sleep(3)
 
     # Handle invalid selection
     else:
         print("****************************************")
         print(invalid_text)
         print("****************************************")
-
-
-        
-
+        sleep(2)  # Pause to allow the user to see the invalid input message
