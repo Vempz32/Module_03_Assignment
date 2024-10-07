@@ -6,12 +6,20 @@ Date: October 6th 2024
 import random
 
 menudict = {
+    "uppercase":{
     "Deposit": "D",
     "Withdraw": "W",
-    "Quit": "Q"
- }
+    "Quit": "Q",
+  },
+    "lowercase":{
+        "deposit": "d",
+        "withdraw": "w",
+        "quit": "q",
+    }
+}
 
 
+#assigning the values to the variables and formatting them properly
 balance = random.randint(-1000,10000)
 
 title_text = "PIXELL RIVER FINANCIAL"
@@ -32,9 +40,9 @@ withdraw_text =  withdraw_text.center(40)
 quit_text = "Quit: Q"
 quit_text =  quit_text.center(40)
 
-
-
-
+invalid_text = "INVALID SELECTION"
+invalid_text = invalid_text.center(40)
+# Printing the selection menu 
 print("****************************************")
 print(title_text)
 print(subheading)
@@ -43,3 +51,14 @@ print(deposit_text)
 print(withdraw_text)
 print(quit_text)
 print("****************************************")
+
+selection = input("Enter your selection: ")
+while True:
+    if selection in menudict["lowercase"].values() or selection in menudict["uppercase"].values():
+        print("your selection is: " + selection)
+        break
+    else: 
+        print("****************************************")
+        print(invalid_text)
+        print("****************************************")
+        selection = input("Enter your selection: ")
